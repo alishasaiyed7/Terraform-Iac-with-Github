@@ -90,6 +90,9 @@ app.listen(port, () => {
 });
 
 ```
+
+**Note - Also create 2 files index.html and style.css inside views folder**
+
 ---
 **app.test.js – Basic Test**
 
