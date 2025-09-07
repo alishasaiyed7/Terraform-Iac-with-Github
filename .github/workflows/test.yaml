@@ -50,5 +50,19 @@ jobs:
             cd Terraform-Iac-with-Github
             git pull origin main
             sudo npm install 
-            sudo npm install -g pm2
-            pm2 restart app || pm2 start app.js --name "to-do-app"
+              if ! command -v pm2 &> /dev/null
+            then
+               echo "⚙️ PM2 not found. Installing..."
+               sudo npm install -g pm2
+            else
+               echo "✅ PM2 already installed"
+              fi
+             if pm2 list | grep -q "todo-app"
+            then
+              echo "🔄 Restarting existing PM2 process..."
+              pm2 restart todo-app
+            else
+              echo "🚀 Starting new PM2 process..."
+              pm2 start app.js --name todo-app
+            fi
+            pm2 save
