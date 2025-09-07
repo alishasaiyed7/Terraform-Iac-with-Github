@@ -144,7 +144,74 @@ terraform.tfstate*
 **.github/workflows/test.yaml – GitHub Actions Workflow**
 
 ```bash
+name: To do Pipeline
 
+on: 
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY}}
+          script: |
+            sudo apt update -y
+            sudo apt install -y git curl build-essential
+            curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+            cd /home/ubuntu || git clone https://github.com/alishasaiyed7/Terraform-Iac-with-Github.git /home/ubuntu/Terraform-Iac-with-Github
+            cd Terraform-Iac-with-Github
+            git pull origin main
+            sudo npm install 
+              if ! command -v pm2 &> /dev/null
+            then
+               echo "⚙️ PM2 not found. Installing..."
+               sudo npm install -g pm2
+            else
+               echo "✅ PM2 already installed"
+              fi
+             if pm2 list | grep -q "to-do-app"
+            then
+              echo "🔄 Restarting existing PM2 process..."
+              pm2 restart to-do-app
+            else
+              echo "🚀 Starting new PM2 process..."
+              pm2 start app.js --name to-do-app
+            fi
+            pm2 save
 
 ```
 ---
