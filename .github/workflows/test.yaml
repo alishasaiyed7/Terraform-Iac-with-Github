@@ -49,6 +49,6 @@ jobs:
             cd /home/ubutnu/ || git clone https://github.com/alishasaiyed7/to-do-app /home/ubuntu/to-do-app
             cd to-do-app
             git pull origin main
-            npm install
+            npm install -g @11.6.0
             npm install -g pm2
             pm2 restart app || pm2 start app.js --name "to-do-app"
