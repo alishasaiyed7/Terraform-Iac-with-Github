@@ -46,8 +46,8 @@ jobs:
             sudo apt install -y git curl build-essential
             curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
             sudo apt-get install -y nodejs
-            cd /home/ubutnu/ || git clone https://github.com/alishasaiyed7/to-do-app /home/ubuntu/to-do-app
-            cd to-do-app
+            cd /home/ubutnu || git clone https://github.com/alishasaiyed7/Terraform-Iac-with-Github /home/ubuntu/Terraform-Iac-with-Github
+            cd Terraform-Iac-with-Github
             git pull origin main
             npm install -g @11.6.0
             npm install -g pm2
