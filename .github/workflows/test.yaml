@@ -49,6 +49,6 @@ jobs:
             cd /home/ubuntu || git clone https://github.com/alishasaiyed7/Terraform-Iac-with-Github.git /home/ubuntu/Terraform-Iac-with-Github
             cd Terraform-Iac-with-Github
             git pull origin main
-            npm install 
-            npm install -g pm2
+            sudo npm install 
+            sudo npm install -g pm2
             pm2 restart app || pm2 start app.js --name "to-do-app"
