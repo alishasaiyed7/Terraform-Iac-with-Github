@@ -57,12 +57,12 @@ jobs:
             else
                echo "✅ PM2 already installed"
               fi
-             if pm2 list | grep -q "todo-app"
+             if pm2 list | grep -q "to-do-app"
             then
               echo "🔄 Restarting existing PM2 process..."
-              pm2 restart todo-app
+              pm2 restart to-do-app
             else
               echo "🚀 Starting new PM2 process..."
-              pm2 start app.js --name todo-app
+              pm2 start app.js --name to-do-app
             fi
             pm2 save
