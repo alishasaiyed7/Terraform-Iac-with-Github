@@ -219,6 +219,18 @@ jobs:
 ```
 ---
 
+
+## Terraform Commands 
+
+```bash
+
+Terraform init
+Terraform plan
+Terraform apply
+
+```
+
+---
 ## 2️⃣ Push Project to GitHub
 
 ```bash
